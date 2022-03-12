@@ -46,23 +46,23 @@ export default function (props) {
   let handleSubmit = (e) => {
     e.preventDefault();
 
-    //   fetch(
-    //     `https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=${sign}&day=${day}`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "x-rapidapi-host": "sameer-kumar-aztro-v1.p.rapidapi.com",
-    //         "x-rapidapi-key": "efea65f3cdmshede39374287e8ccp1fdea2jsn96148723ceec"
-    //       }
+    // fetch(
+    //   `https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=${sign}&day=${day}`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "x-rapidapi-host": "sameer-kumar-aztro-v1.p.rapidapi.com",
+    //       "x-rapidapi-key": "efea65f3cdmshede39374287e8ccp1fdea2jsn96148723ceec"
     //     }
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       setData(data);
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     props.propsObj.setData(data);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   };
   return (
     <div>
