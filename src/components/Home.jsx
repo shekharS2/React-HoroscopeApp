@@ -1,7 +1,10 @@
+import { useState } from "react";
 import "../styles.css";
+import { useNavigate } from "react-router-dom";
 import FormInputText from "./FormInputText.jsx";
 
 export default function (props) {
+  let navigate = useNavigate();
   const signs = [
     "aries",
     "taurus",
@@ -24,79 +27,119 @@ export default function (props) {
   let signError = "";
   let dayError = "";
 
-  let handleName = (event) => {
-    let tmp = event.target.value.toLowerCase();
-    props.propsObj.setName(tmp);
-  };
+  let validateName = () => {
+    let iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
+    if(props.propsObj.name === ""){
+      alert("'Name' field cannot be empty.");
+      return false;
+    }
 
-  let handleEmail = (event) => {
-    props.propsObj.setEmail(event.target.value);
-  };
+    for (let i = 0; i < props.propsObj.name.length; i++){
+      if (iChars.indexOf(props.propsObj.name.charAt(i)) != -1){
+        alert("'Name' field cannot have special characters.");
+        return false;
+      }
+    }
+    return true;
+  }
 
-  let handleSign = (event) => {
-    let tmp = event.target.value.toLowerCase();
-    props.propsObj.setSign(tmp);
-  };
+  let validateEmail = () => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(props.propsObj.email)){
+      return (true);
+    }
+    alert("You have entered an invalid email address!");
+    return (false);
+  }
 
-  let handleDay = (event) => {
-    let tmp = event.target.value.toLowerCase();
-    props.propsObj.setDay(tmp);
-  };
+  let validateSign = () => {
+    if(signs.includes(props.propsObj.sign)){
+      return true;
+    }else{
+      signError = "Invalid sign!";
+      alert("Invalid Sign!");
+      return false;
+    }
+  }
 
-  let handleSubmit = (e) => {
+  let validateDay = () => {
+    if(days.includes(props.propsObj.day)){
+      return true;
+    }else{
+      signError = "Invalid sign.";
+      alert("Invalid day! Choose from 'Yesterday', 'Today' and 'Tomorrow'");
+      return false;
+    }
+  }
+
+  let handleClick = (e) => {
     e.preventDefault();
+    if(validateName() && validateEmail() && validateSign() && validateDay()){
 
-    // fetch(
-    //   `https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=${sign}&day=${day}`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "x-rapidapi-host": "sameer-kumar-aztro-v1.p.rapidapi.com",
-    //       "x-rapidapi-key": "efea65f3cdmshede39374287e8ccp1fdea2jsn96148723ceec"
-    //     }
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     props.propsObj.setData(data);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+      fetch(
+        `https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=${props.propsObj.sign}&day=${props.propsObj.day}`,
+        {
+          method: "POST",
+          headers: {
+            "x-rapidapi-host": "sameer-kumar-aztro-v1.p.rapidapi.com",
+            "x-rapidapi-key": "efea65f3cdmshede39374287e8ccp1fdea2jsn96148723ceec"
+          }
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          props.propsObj.setData(data);
+        })
+        .catch((err) => {
+          console.error(err);
+         });
+         
+      setTimeout(() => {navigate("/horoscope");}, 1500);
+
+    }
   };
   return (
     <div>
-      {/* <h1>Test Home</h1>
-      <h2>{props.propsObj.name}</h2> */}
-
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleClick}>
         <div class="inputFields">
           <FormInputText
+            type="name"
             val={props.propsObj.name}
             placeholder="Enter name"
-            handleInput={handleName}
+            setName = {props.propsObj.setName}
+            name = {props.propsObj.name}
+            error = {nameError}
           />
-          <div>{nameError}</div>
+          
 
           <FormInputText
+            type="email"
             val={props.propsObj.email}
             placeholder="Enter email"
-            handleInput={handleEmail}
+            setEmail = {props.propsObj.setEmail}
+            email = {props.propsObj.email}
+            error = {emailError}
           />
-          <div>{emailError}</div>
 
           <FormInputText
+            type="sign"
             val={props.propsObj.sign}
             placeholder="Enter horoscope sign"
-            handleInput={handleSign}
+            setSign = {props.propsObj.setSign}
+            sign = {props.propsObj.sign}
+            error = {signError}
           />
+
           <FormInputText
+            type="day"
             val={props.propsObj.day}
             placeholder="Enter day"
-            handleInput={handleDay}
+            setDay = {props.propsObj.setDay}
+            day = {props.propsObj.day}
+            error = {dayError}
           />
+
         </div>
-        <button onClick={() => {}}>Submit</button>
+        <button onClick={handleClick}>Submit</button>
       </form>
     </div>
   );

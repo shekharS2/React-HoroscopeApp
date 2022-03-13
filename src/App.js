@@ -2,14 +2,17 @@ import "./styles.css";
 import Home from "./components/Home.jsx";
 import Result from "./components/Result.jsx";
 import { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import logo from "./imgs/logo.jpg";
 
 export default function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sign, setSign] = useState("");
   const [day, setDay] = useState("");
-  const [data, setData] = useState({ color: "TestRed" });
+  const [data, setData] = useState({
+    
+    });
 
   let propsObj = {
     name,
@@ -24,22 +27,17 @@ export default function App() {
   };
 
   return (
-    // <Router>
-    //   <div className="App">
-    //     {/* <label>Test</label> */}
-    //     <Switch>
-    //       <Route path="/about">
-    //         <Result data={data} />
-    //       </Route>
-    //       <Route path="/">
-    //         <Home propsObj={propsObj} />
-    //       </Route>
-    //     </Switch>
-    //   </div>
-    // </Router>
-    <div>
-      <Home propsObj={propsObj} />
-      <Result data={data} />
-    </div>
+    <Router>
+      <div className="App">
+        <Link to="/">
+        <img src={logo} height="60px" width="60px"></img>
+        </Link>
+
+        <Routes>
+          <Route path="/horoscope" element={<Result data={data} day={day} name={name} email={email} sign={sign}/>}></Route>
+          <Route path="/" element={<Home propsObj={propsObj}/>}></Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }

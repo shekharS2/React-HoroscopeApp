@@ -11,9 +11,71 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  background-color: #fdcb6e;
 }
 
 input {
-  padding: 15px;
-  margin: 10px 0px;
+  padding: 5px;
+  margin: 5px 0px;
+  background-color: #F8EFBA;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #1e3799;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  transition: 0.4s;
+}
+
+button:hover{
+  opacity: 0.9;
+  font-weight: bold;
+}
+
+img {
+  margin: 10px 0;
+}
+
+.horoscope-date-not-inclusive {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  background-color: #F8EFBA;
+  border-radius: 10px;
+}
+
+.horoscope-date-inclusive {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  background-color: #8c7ae6;
+  border-radius: 10px;
+}
+
+.horoscope-heading {
+  font-size: 9px;
+  margin: auto;
+}
+
+.horoscope-details {
+  font-size: 7px;
+  margin: 20px;
+}
+
+.detailsName {
+  font-weight: bold;
+}
+
+.details-row {
+  padding: 2px;
 }
